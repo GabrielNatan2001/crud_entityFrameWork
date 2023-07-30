@@ -1,4 +1,5 @@
-﻿using Crud_Domain.Entity;
+﻿using Crud_Api.DataTransferObject;
+using Crud_Domain.Entity;
 using Crud_Repositories.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,12 +17,14 @@ namespace Crud_Api.Controllers
         }
 
         [HttpPost("Insert")]
-        public async Task<IActionResult> Registrar(EntidadePessoa pessoa)
+        public async Task<IActionResult> Registrar(PessoaDto dto)
         {
-            if (pessoa == null)
+            if (dto == null)
             {
                 return BadRequest("Insira os Dados");
             }
+
+            var pessoa = dto.MapToEntity();
 
             await _pessoaRepository.Insert(pessoa);
 
@@ -47,9 +50,11 @@ namespace Crud_Api.Controllers
         }
 
         [HttpPut("Update")]
-        public async Task<IActionResult> Update( EntidadePessoa pessoa)
+        public async Task<IActionResult> Update(PessoaDto dto)
         {
-            if (pessoa == null) return BadRequest("Informe os dados");
+            if (dto == null) return BadRequest("Informe os dados");
+
+            var pessoa = dto.MapToEntity();
 
             await _pessoaRepository.Update(pessoa);
 

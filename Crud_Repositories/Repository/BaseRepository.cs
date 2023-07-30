@@ -14,7 +14,7 @@ namespace Crud_Repositories.Repository
         {
            var entity = await GetById(id);
             _dataContext.Set<T>().Remove(entity);
-            await _dataContext.SaveChangesAsync();
+            var result = await _dataContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<T>> GetAll()

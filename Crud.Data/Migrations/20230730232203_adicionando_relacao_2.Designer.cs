@@ -4,6 +4,7 @@ using Crud.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crud.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230730232203_adicionando_relacao_2")]
+    partial class adicionandorelacao2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,8 +48,6 @@ namespace Crud.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EntidadePessoaId");
-
                     b.ToTable("Contato", (string)null);
                 });
 
@@ -72,20 +73,6 @@ namespace Crud.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pessoa", (string)null);
-                });
-
-            modelBuilder.Entity("Crud_Domain.Entity.EntidadeContato", b =>
-                {
-                    b.HasOne("Crud_Domain.Entity.EntidadePessoa", null)
-                        .WithMany("Contatos")
-                        .HasForeignKey("EntidadePessoaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("Crud_Domain.Entity.EntidadePessoa", b =>
-                {
-                    b.Navigation("Contatos");
                 });
 #pragma warning restore 612, 618
         }

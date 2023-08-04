@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Crud.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230730232203_adicionando_relacao_2")]
-    partial class adicionandorelacao2
+    [Migration("20230803235727_ajustando_tabelas")]
+    partial class ajustandotabelas
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -48,6 +48,8 @@ namespace Crud.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("EntidadePessoaId");
+
                     b.ToTable("Contato", (string)null);
                 });
 
@@ -73,6 +75,45 @@ namespace Crud.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Pessoa", (string)null);
+                });
+
+            modelBuilder.Entity("Crud_Domain.Entity.EntidadeUsuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Perfil")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuario", (string)null);
+                });
+
+            modelBuilder.Entity("Crud_Domain.Entity.EntidadeContato", b =>
+                {
+                    b.HasOne("Crud_Domain.Entity.EntidadePessoa", null)
+                        .WithMany("Contatos")
+                        .HasForeignKey("EntidadePessoaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Crud_Domain.Entity.EntidadePessoa", b =>
+                {
+                    b.Navigation("Contatos");
                 });
 #pragma warning restore 612, 618
         }

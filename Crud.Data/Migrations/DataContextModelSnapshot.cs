@@ -74,6 +74,31 @@ namespace Crud.Data.Migrations
                     b.ToTable("Pessoa", (string)null);
                 });
 
+            modelBuilder.Entity("Crud_Domain.Entity.EntidadeUsuario", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Perfil")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Senha")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usuario", (string)null);
+                });
+
             modelBuilder.Entity("Crud_Domain.Entity.EntidadeContato", b =>
                 {
                     b.HasOne("Crud_Domain.Entity.EntidadePessoa", null)

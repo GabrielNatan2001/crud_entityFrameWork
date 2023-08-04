@@ -1,6 +1,7 @@
 ﻿using Crud_Api.DataTransferObject;
 using Crud_Domain.Entity;
 using Crud_Repositories.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -32,6 +33,7 @@ namespace Crud_Api.Controllers
         }
 
         [HttpGet("GetById/{id}")]
+        [Authorize(Roles = "operador")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _pessoaRepository.GetById(id);
@@ -41,6 +43,7 @@ namespace Crud_Api.Controllers
         }
 
         [HttpGet("GetAll")]
+        [Authorize(Roles = "administrador")]
         public async Task<IActionResult> GetAll()
         {
             var result = await _pessoaRepository.GetAll();

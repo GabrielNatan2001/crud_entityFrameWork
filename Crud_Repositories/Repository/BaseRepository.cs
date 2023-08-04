@@ -29,7 +29,7 @@ namespace Crud_Repositories.Repository
 
         public async Task Insert(T entity)
         {
-            await _dataContext.Set<T>().AddAsync(entity);
+            var result = await _dataContext.Set<T>().AddAsync(entity);
             await _dataContext.SaveChangesAsync();
         }
 

@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Crud_Repositories.Interface
 {
-    public interface IContatoRepository : IBaseRepository <EntidadeContato>
+    public interface IUsuarioRepository : IBaseRepository<EntidadeUsuario>
     {
+        public Task<EntidadeUsuario> Authenticate(EntidadeUsuario user);
     }
 }
